@@ -58,7 +58,7 @@ export default {
         path: "/LostAndFoundAnimal",
       },
       { text: "입양후기", icon: "mdi-forum", path: "/ReviewMain" },
-      { text: "관리자", icon: "mdi-format-list-checks", path: "/manager" },
+      { text: "관리자", icon: "mdi-format-list-checks", path: "/password" },
     ],
   }),
 

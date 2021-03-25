@@ -10,8 +10,9 @@
           align="center"
         />
         <v-btn
+          class="black"
           @click="navigateTo()"
-          color="green"
+          color="light-green accent-3"
           elevation="10"
           outlined
           x-large
@@ -28,8 +29,9 @@
           align="center"
         />
         <v-btn
+          class="black"
           @click="navigateTo2()"
-          color="amber"
+          color="yellow accent-2"
           elevation="10"
           outlined
           x-large
@@ -46,8 +48,9 @@
           align="center"
         />
         <v-btn
+          class="black"
           @click="navigateTo3()"
-          color="blue"
+          color="light-blue lighten-2"
           elevation="10"
           outlined
           x-large
@@ -70,6 +73,7 @@ export default {
     navigateTo() {
       this.$router.push("/adoption");
     },
+
     navigateTo2() {
       this.$router.push("/loss");
     },

@@ -38,7 +38,12 @@ const routes = [
     name: 'find',
     component: () => import(/* webpackChunkName: "about" */ '../views/find.vue')
   },
-  
+  {
+    path: '/password',
+    name: 'password',
+    component: () => import(/* webpackChunkName: "about" */ '../views/password.vue')
+  },
+
 ]
 
 const router = new VueRouter({
