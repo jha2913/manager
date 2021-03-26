@@ -81,11 +81,7 @@ export default {
   components: {
     side,
   },
-  computed: {
-    side() {
-      return this.$store.state.side;
-    },
-  },
+
   data() {
     return {
       tab: null,
