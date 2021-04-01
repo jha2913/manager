@@ -14,7 +14,7 @@
         <v-text-field
           v-model="password"
           :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-          :rules="[rules.required, rules.min]"
+          :rules="[]"
           :type="show1 ? 'text' : 'password'"
           name="input-10-1"
           label="비밀번호를 입력하세요"
@@ -34,7 +34,7 @@ export default {
     return {
       show1: true,
       password: "",
-      rules: {},
+      rules: true,
     };
   },
 
