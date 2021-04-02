@@ -16,29 +16,29 @@
               />
 
               <v-form ref="form">
-                id: {{ list[0].id }}
+                id: {{ list.id }}
                 <p />
-                날짜: {{ list[0].date }}
+                날짜: {{ list.date }}
                 <p />
-                이름: {{ list[0].name }}
+                이름: {{ list.name }}
                 <p />
-                지역: {{ list[0].area }}
+                지역: {{ list.area }}
                 <p />
-                성별: {{ list[0].gender }}
+                성별: {{ list.gender }}
                 <p />
-                색깔: {{ list[0].color }}
+                색깔: {{ list.color }}
                 <p />
-                content: {{ list[0].content }}
+                content: {{ list.content }}
                 <p />
-                list_animal_file: {{ list[0].listAnimalFile }}
+                list_animal_file: {{ list.listAnimalFile }}
                 <p />
-                number: {{ list[0].number }}
+                number: {{ list.number }}
                 <p />
-                state: {{ list[0].state }}
+                state: {{ list.state }}
                 <p />
-                상태: {{ list[0].status }}
+                상태: {{ list.status }}
                 <p />
-                type: {{ list[0].type }}
+                type: {{ list.type }}
                 <p />
                 <br />
                 <div>
@@ -69,8 +69,12 @@
                     <div class="red--text"><strong>거절</strong>되었습니다</div>
                   </v-alert>
 
-                  <v-btn color="green mr-5" dark @click="yes"> 승인 </v-btn>
-                  <v-btn color="red" dark @click="no"> 거절 </v-btn>
+                  <v-btn color="green mr-5" dark @click="patchFinds('승인')">
+                    승인
+                  </v-btn>
+                  <v-btn color="red" dark @click="patchFinds('거절')">
+                    거절
+                  </v-btn>
                 </div>
 
                 <br />
@@ -107,6 +111,7 @@ export default {
       alert2: false,
       find: "",
       list: [],
+      id: 1,
     };
   },
 
@@ -116,38 +121,48 @@ export default {
   },
 
   methods: {
-    no() {
-      this.alert2 = true;
-      this.alert = false;
-    },
-    yes() {
-      this.alert = true;
-      this.alert2 = false;
-    },
+    async patchFinds(status) {
+      console.log(status);
+      if (status == "승인") {
+        this.list.status = "승인";
+      } else if (status != "승인") {
+        this.list.status = "거절";
+      }
 
-    async getFinds() {
-      const result = await api.list();
-      console.log("result");
+      const result = await api.patch(this.list.id, this.list);
+      console.log("patch");
       console.log(result);
 
       if (result.status == 200) {
-        this.list = result.data;
+        this.patch = result.data;
       }
     },
+
     async getList() {
       let page = 0;
       const result = await api.list(page);
       console.log(result.data);
       if (result.status == 200) {
-        this.list = result.data.content;
+        // this.list = result.data.content;
         this.totalPages = result.data.totalPages;
       }
+      this.get();
     },
-    async handlePageChange(value) {
-      let page = value - 1;
-      const result = await api.list(page);
+
+    async get() {
+      const result = await api.get(this.id);
+      console.log(result.data);
       if (result.status == 200) {
-        this.list = result.data.content;
+        // this.list = result.data.content;
+        this.list = result.data;
+      }
+    },
+
+    async handlePageChange(value) {
+      // let page = value - 1;
+      const result = await api.get(value);
+      if (result.status == 200) {
+        this.list = result.data;
       }
     },
   },

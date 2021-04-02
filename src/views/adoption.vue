@@ -16,37 +16,37 @@
               />
 
               <v-form ref="form">
-                id: {{ list[0].id }}
+                id: {{ list.id }}
                 <p />
-                이름: {{ list[0].name }}
+                이름: {{ list.name }}
                 <p />
-                성별: {{ list[0].gender }}
+                성별: {{ list.gender }}
                 <p />
-                주소: {{ list[0].address }}
+                주소: {{ list.address }}
                 <p />
-                연락처: {{ list[0].mobile }}
+                연락처: {{ list.mobile }}
                 <p />
-                e-mail: {{ list[0].email }}
+                e-mail: {{ list.email }}
                 <p />
-                직업: {{ list[0].job }}
+                직업: {{ list.job }}
                 <p />
-                notice.No: {{ list[0].noticeNo }}
+                notice.No: {{ list.noticeNo }}
                 <p />
-                가족동의: {{ list[0].familyAgreed }}
+                가족동의: {{ list.familyAgreed }}
                 <p />
-                가족멤버: {{ list[0].familyMember }}
+                가족멤버: {{ list.familyMember }}
                 <p />
-                가구: {{ list[0].houseType }}
+                가구: {{ list.houseType }}
                 <p />
-                반려동물: {{ list[0].petAtHome }}
+                반려동물: {{ list.petAtHome }}
                 <p />
-                동물상세: {{ list[0].petDetails }}
+                동물상세: {{ list.petDetails }}
                 <p />
-                requestNo: {{ list[0].requestNo }}
+                requestNo: {{ list.requestNo }}
                 <p />
-                reason: {{ list[0].reason }}
+                reason: {{ list.reason }}
                 <p />
-                status: {{ list[0].status }}
+                status: {{ list.status }}
                 <p />
                 <br />
                 <div>
@@ -77,8 +77,16 @@
                     <div class="red--text"><strong>거절</strong>되었습니다</div>
                   </v-alert>
 
-                  <v-btn color="green mr-5" dark @click="yes"> 승인 </v-btn>
-                  <v-btn color="red" dark @click="no"> 거절 </v-btn>
+                  <v-btn
+                    color="green mr-5"
+                    dark
+                    @click="patchAdoptions('승인')"
+                  >
+                    승인
+                  </v-btn>
+                  <v-btn color="red" dark @click="patchAdoptions('거절')">
+                    거절
+                  </v-btn>
                 </div>
 
                 <br />
@@ -115,6 +123,7 @@ export default {
       alert2: false,
       adoption: "",
       list: [],
+      id: 1,
     };
   },
 
@@ -124,38 +133,48 @@ export default {
   },
 
   methods: {
-    no() {
-      this.alert2 = true;
-      this.alert = false;
-    },
-    yes() {
-      this.alert = true;
-      this.alert2 = false;
-    },
+    async patchAdoptions(status) {
+      console.log(status);
+      if (status == "승인") {
+        this.list.status = "승인";
+      } else if (status != "승인") {
+        this.list.status = "거절";
+      }
 
-    async getAdoptions() {
-      const result = await api.list();
-      console.log("result");
+      const result = await api.patch(this.list.id, this.list);
+      console.log("patch");
       console.log(result);
 
       if (result.status == 200) {
-        this.list = result.data;
+        this.patch = result.data;
       }
     },
+
     async getList() {
       let page = 0;
       const result = await api.list(page);
       console.log(result.data);
       if (result.status == 200) {
-        this.list = result.data.content;
+        // this.list = result.data.content;
         this.totalPages = result.data.totalPages;
       }
+      this.get();
     },
-    async handlePageChange(value) {
-      let page = value - 1;
-      const result = await api.list(page);
+
+    async get() {
+      const result = await api.get(this.id);
+      console.log(result.data);
       if (result.status == 200) {
-        this.list = result.data.content;
+        // this.list = result.data.content;
+        this.list = result.data;
+      }
+    },
+
+    async handlePageChange(value) {
+      // let page = value - 1;
+      const result = await api.get(value);
+      if (result.status == 200) {
+        this.list = result.data;
       }
     },
   },

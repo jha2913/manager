@@ -2,9 +2,9 @@ import axios from 'axios'
 
 export default {
 
-  get: () => axios.get(`${process.env.VUE_APP_API_BASE}/lostAndFounds`),
+  get: (id) => axios.get(`${process.env.VUE_APP_API_BASE}/losss/${id}`),
 
-  put: (id) => axios.put(`${process.env.VUE_APP_API_BASE}/lostAndFounds/${id}/put`),
+  patch: (id, final4) => axios.patch(`${process.env.VUE_APP_API_BASE}/losss/${id}`, final4),
 
-  list: (page) => axios.get(`${process.env.VUE_APP_API_BASE}/lostAndFounds/paging?page=${page}`)
+  list: (page) => axios.get(`${process.env.VUE_APP_API_BASE}/losss/paging?page=${page}`)
 }

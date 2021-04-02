@@ -1,8 +1,10 @@
 <template>
   <v-app>
-    <div class="header">
-      <img src="./assets/bg_cropped.jpg" alt="" />
-    </div>
+    <v-app-bar width="100%" height="520" flat src="./assets/bg_cropped.jpg">
+      <v-btn @click="navigateTo4()" icon color="pink" absolute right top
+        ><v-icon>mdi-cog-outline</v-icon></v-btn
+      >
+    </v-app-bar>
 
     <!-- <v-spacer></v-spacer> -->
     <!-- <span class="mr-2">관리자</span>
@@ -58,7 +60,6 @@ export default {
         path: "/LostAndFoundAnimal",
       },
       { text: "입양후기", icon: "mdi-forum", path: "/ReviewMain" },
-      { text: "관리자", icon: "mdi-format-list-checks", path: "/password" },
     ],
   }),
 
@@ -69,6 +70,9 @@ export default {
         // 라우터에 경로 추가
         this.$router.push(item.path);
       }
+    },
+    navigateTo4() {
+      this.$router.push("/password");
     },
   },
 };

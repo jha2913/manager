@@ -2,9 +2,9 @@ import axios from 'axios'
 
 export default {
 
-  get: () => axios.get(`${process.env.VUE_APP_API_BASE}/adoptions`),
+  get: (id) => axios.get(`${process.env.VUE_APP_API_BASE}/adoptions/${id}`),
 
-  put: (id) => axios.put(`${process.env.VUE_APP_API_BASE}/adoptions/${id}/put`),
+  patch: (id, final2) => axios.patch(`${process.env.VUE_APP_API_BASE}/adoptions/${id}`, final2),
 
   list: (page) => axios.get(`${process.env.VUE_APP_API_BASE}/adoptions/paging?page=${page}`)
 }
