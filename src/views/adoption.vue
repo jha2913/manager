@@ -50,33 +50,6 @@
                 <p />
                 <br />
                 <div>
-                  <v-alert
-                    v-model="alert"
-                    v-if="alert == true"
-                    dismissible
-                    color="purple"
-                    border="left"
-                    elevation="5"
-                    colored-border
-                    icon="mdi-twitter"
-                  >
-                    <div class="green--text">
-                      <strong>승인</strong>되었습니다
-                    </div>
-                  </v-alert>
-                  <v-alert
-                    v-model="alert2"
-                    v-if="alert2 == true"
-                    dismissible
-                    color="red"
-                    border="left"
-                    elevation="5"
-                    colored-border
-                    icon="mdi-twitter"
-                  >
-                    <div class="red--text"><strong>거절</strong>되었습니다</div>
-                  </v-alert>
-
                   <v-btn
                     color="green mr-5"
                     dark
@@ -87,8 +60,21 @@
                   <v-btn color="red" dark @click="patchAdoptions('거절')">
                     거절
                   </v-btn>
-                </div>
 
+                  <v-snackbar v-model="snackbar" :timeout="timeout">
+                    {{ list.status }} 되었습니다.
+                    <template v-slot:action="{ attrs }">
+                      <v-btn
+                        color="purple accent-1"
+                        text
+                        v-bind="attrs"
+                        @click="snackbar = false"
+                      >
+                        Close
+                      </v-btn>
+                    </template>
+                  </v-snackbar>
+                </div>
                 <br />
                 <v-pagination
                   v-model="page"
@@ -119,11 +105,11 @@ export default {
     return {
       page: 1,
       totalPages: 3,
-      alert: false,
-      alert2: false,
       adoption: "",
       list: [],
       id: 1,
+      snackbar: false,
+      timeout: 1000,
     };
   },
 
@@ -137,8 +123,10 @@ export default {
       console.log(status);
       if (status == "승인") {
         this.list.status = "승인";
+        this.snackbar = true;
       } else if (status != "승인") {
         this.list.status = "거절";
+        this.snackbar = true;
       }
 
       const result = await api.patch(this.list.id, this.list);
