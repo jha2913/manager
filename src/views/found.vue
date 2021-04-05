@@ -36,7 +36,7 @@
                 <p />
                 state: {{ list.state }}
                 <p />
-                상태: {{ list.status }}
+                status: {{ list.status }}
                 <p />
                 type: {{ list.type }}
                 <p />
@@ -69,10 +69,10 @@
                     <div class="red--text"><strong>거절</strong>되었습니다</div>
                   </v-alert>
 
-                  <v-btn color="green mr-5" dark @click="patchFinds('승인')">
+                  <v-btn color="green mr-5" dark @click="patchFounds('승인')">
                     승인
                   </v-btn>
-                  <v-btn color="red" dark @click="patchFinds('거절')">
+                  <v-btn color="red" dark @click="patchFounds('거절')">
                     거절
                   </v-btn>
                 </div>
@@ -96,7 +96,7 @@
 
 <script>
 import side from "../components/side.vue";
-import api from "@/api/find";
+import api from "@/api/found";
 
 export default {
   components: {
@@ -106,10 +106,10 @@ export default {
   data() {
     return {
       page: 1,
-      totalPages: 3,
+      totalPages: 5,
       alert: false,
       alert2: false,
-      find: "",
+      found: "",
       list: [],
       id: 1,
     };
@@ -121,7 +121,7 @@ export default {
   },
 
   methods: {
-    async patchFinds(status) {
+    async patchFounds(status) {
       console.log(status);
       if (status == "승인") {
         this.list.status = "승인";

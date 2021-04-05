@@ -29,14 +29,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/adoption.vue')
   },
   {
-    path: '/loss',
-    name: 'loss',
-    component: () => import(/* webpackChunkName: "about" */ '../views/loss.vue')
+    path: '/lost',
+    name: 'lost',
+    component: () => import(/* webpackChunkName: "about" */ '../views/lost.vue')
   },
   {
-    path: '/find',
-    name: 'find',
-    component: () => import(/* webpackChunkName: "about" */ '../views/find.vue')
+    path: '/found',
+    name: 'found',
+    component: () => import(/* webpackChunkName: "about" */ '../views/found.vue')
   },
   {
     path: '/password',

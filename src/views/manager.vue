@@ -93,11 +93,10 @@ export default {
       this.$router.push("/adoption");
     },
     navigateTo2() {
-      this.$router.push("/loss");
+      this.$router.push("/lost");
     },
-
     navigateTo3() {
-      this.$router.push("/find");
+      this.$router.push("/found");
     },
   },
 };
