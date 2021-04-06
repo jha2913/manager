@@ -8,12 +8,7 @@
         <v-col cols="12" md="9">
           <v-card class="mx-auto" color="lime lighten-5" max-width="1000">
             <div>
-              <img
-                alt="요크셔테리어"
-                src="../assets/요크셔테리어.jpg"
-                width="500px"
-                height="500px"
-              />
+              <img src="list.animalImg" width="500px" height="500px" />
 
               <v-form ref="form">
                 id: {{ list.id }}
@@ -53,7 +48,7 @@
                   <v-btn
                     color="green mr-5"
                     dark
-                    @click="patchAdoptions('승인')"
+                    @click="patchAdoptions('완료')"
                   >
                     승인
                   </v-btn>
@@ -104,7 +99,7 @@ export default {
   data() {
     return {
       page: 1,
-      totalPages: 3,
+      totalPages: 0,
       adoption: "",
       list: [],
       id: 1,
@@ -121,14 +116,25 @@ export default {
   methods: {
     async patchAdoptions(status) {
       console.log(status);
-      if (status == "승인") {
-        this.list.status = "승인";
+      if (status == "완료" && this.list.status == "입양신청") {
+        this.list.status = "입양완료";
         this.snackbar = true;
-      } else if (status != "승인") {
+      } else if (status == "완료" && this.list.status == "취소신청") {
+        this.list.status = "취소완료";
+        this.snackbar = true;
+      } else if (status != "완료" && this.list.status == "입양신청") {
+        this.list.status = "거절";
+        this.snackbar = true;
+      } else if (status == "완료" && this.list.status == "입양완료") {
+        this.list.status = "입양완료";
+        this.snackbar = true;
+      } else if (status == "완료" && this.list.status == "취소완료") {
+        this.list.status = "취소완료";
+        this.snackbar = true;
+      } else if (status != "완료" && this.list.status == "거절") {
         this.list.status = "거절";
         this.snackbar = true;
       }
-
       const result = await api.patch(this.list.id, this.list);
       console.log("patch");
       console.log(result);
@@ -155,6 +161,9 @@ export default {
       if (result.status == 200) {
         // this.list = result.data.content;
         this.list = result.data;
+        console.log(result.data);
+        console.log("---");
+        console.log(this.list.animalImg);
       }
     },
 

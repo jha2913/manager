@@ -8,12 +8,7 @@
         <v-col cols="12" md="9">
           <v-card class="mx-auto" color="lime lighten-5" max-width="1000">
             <div>
-              <img
-                alt="페키니즈"
-                src="../assets/페키니즈.jpg"
-                width="500px"
-                height="500px"
-              />
+              <img src="list.files" width="500px" height="500px" />
 
               <v-form ref="form">
                 id: {{ list.id }}
