@@ -103,7 +103,7 @@ export default {
 
   methods: {
     async patchLosts(status) {
-      console.log(status);
+      console.log("status----" + status);
       if (status == "승인") {
         this.list.status = "승인";
         this.snackbar = true;
@@ -113,8 +113,8 @@ export default {
       }
 
       const result = await api.patch(this.list.id, this.list);
-      console.log("patch");
-      console.log(result);
+
+      console.log("patch" + result);
 
       if (result.status == 200) {
         this.patch = result.data;
@@ -123,8 +123,8 @@ export default {
 
     async getList() {
       let page = 0;
-      const result = await api.list(page);
-      console.log(result.data);
+      const result = await api.lost(page);
+
       if (result.status == 200) {
         // this.list = result.data.content;
         this.totalPages = result.data.totalPages;
@@ -134,7 +134,7 @@ export default {
 
     async get() {
       const result = await api.get(this.id);
-      console.log(result.data);
+
       if (result.status == 200) {
         // this.list = result.data.content;
         this.list = result.data;
@@ -142,10 +142,9 @@ export default {
     },
 
     async handlePageChange(value) {
-      // let page = value - 1;
-      const result = await api.get(value);
+      const result = await api.lost(value - 1);
       if (result.status == 200) {
-        this.list = result.data;
+        this.list = result.data.content[0];
       }
     },
   },

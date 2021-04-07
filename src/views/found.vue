@@ -8,12 +8,7 @@
         <v-col cols="12" md="9">
           <v-card class="mx-auto" color="lime lighten-5" max-width="1000">
             <div>
-              <img
-                alt="시베리아허스키"
-                src="../assets/시베리아허스키.jpg"
-                width="500px"
-                height="500px"
-              />
+              <img src="list.files" width="500px" height="500px" />
 
               <v-form ref="form">
                 id: {{ list.id }}
@@ -119,8 +114,8 @@ export default {
       }
 
       const result = await api.patch(this.list.id, this.list);
-      console.log("patch");
-      console.log(result);
+
+      console.log("patch" + result);
 
       if (result.status == 200) {
         this.patch = result.data;
@@ -129,18 +124,20 @@ export default {
 
     async getList() {
       let page = 0;
-      const result = await api.list(page);
-      console.log(result.data);
+      const result = await api.found(page);
+      console.log(result);
+
       if (result.status == 200) {
-        // this.list = result.data.content;
+        this.list = result.data.content[0];
         this.totalPages = result.data.totalPages;
       }
-      this.get();
+      // this.get();
     },
 
     async get() {
       const result = await api.get(this.id);
-      console.log(result.data);
+      console.log(this.id);
+
       if (result.status == 200) {
         // this.list = result.data.content;
         this.list = result.data;
@@ -148,10 +145,11 @@ export default {
     },
 
     async handlePageChange(value) {
-      // let page = value - 1;
-      const result = await api.get(value);
+      const result = await api.found(value - 1);
       if (result.status == 200) {
-        this.list = result.data;
+        this.list = result.data.content[0];
+        console.log("-----");
+        console.log(this.list);
       }
     },
   },

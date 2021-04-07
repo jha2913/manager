@@ -60,7 +60,7 @@
               </v-img>
               <v-card-subtitle class="pb-0" align="center"> </v-card-subtitle>
               <v-card-text class="text--primary">
-                <div class="blue--text font-weight-black">3건</div>
+                <div class="blue--text font-weight-black">4건</div>
               </v-card-text>
               <v-card-actions>
                 <v-btn @click="navigateTo3()" color="blue" text>진행하기</v-btn>
