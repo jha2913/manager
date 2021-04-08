@@ -8,7 +8,8 @@
         <v-col cols="12" md="9">
           <v-card class="mx-auto" color="lime lighten-5" max-width="1000">
             <div>
-              <img src="list.files" width="500px" height="500px" />
+              <v-img :src="list.animalFile" width="500px" height="500px">
+              </v-img>
 
               <v-form ref="form">
                 id: {{ list.id }}
@@ -24,8 +25,6 @@
                 색깔: {{ list.color }}
                 <p />
                 content: {{ list.content }}
-                <p />
-                list_animal_file: {{ list.listAnimalFile }}
                 <p />
                 number: {{ list.number }}
                 <p />
@@ -88,7 +87,7 @@ export default {
   data() {
     return {
       page: 1,
-      totalPages: 5,
+      totalPages: 1,
       found: "",
       list: [],
       id: 1,
@@ -105,6 +104,7 @@ export default {
   methods: {
     async patchFounds(status) {
       console.log(status);
+
       if (status == "승인") {
         this.list.status = "승인";
         this.snackbar = true;

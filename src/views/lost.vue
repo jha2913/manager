@@ -8,7 +8,8 @@
         <v-col cols="12" md="9">
           <v-card class="mx-auto" color="lime lighten-5" max-width="1000">
             <div>
-              <img src="list.files" width="500px" height="500px" />
+              <v-img :src="picture.animalFiles" width="500px" height="500px">
+              </v-img>
 
               <v-form ref="form">
                 id: {{ list.id }}
@@ -24,8 +25,6 @@
                 색깔: {{ list.color }}
                 <p />
                 content: {{ list.content }}
-                <p />
-                list_animal_file: {{ list.listAnimalFile }}
                 <p />
                 number: {{ list.number }}
                 <p />
@@ -90,6 +89,7 @@ export default {
       totalPages: 5,
       lost: "",
       list: [],
+      picture: [],
       id: 1,
       snackbar: false,
       timeout: 1000,
@@ -113,7 +113,6 @@ export default {
       }
 
       const result = await api.patch(this.list.id, this.list);
-
       console.log("patch" + result);
 
       if (result.status == 200) {
@@ -123,10 +122,16 @@ export default {
 
     async getList() {
       let page = 0;
+
       const result = await api.lost(page);
+
+      const result2 = await api.picture(page);
+      console.log("000");
+      console.log(result2.data.content[0].dataUrl);
 
       if (result.status == 200) {
         // this.list = result.data.content;
+        this.picture = result2.data.content[0];
         this.totalPages = result.data.totalPages;
       }
       this.get();
@@ -138,6 +143,8 @@ export default {
       if (result.status == 200) {
         // this.list = result.data.content;
         this.list = result.data;
+        console.log("-----");
+        console.log(this.list);
       }
     },
 

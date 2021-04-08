@@ -20,7 +20,7 @@
 
           <v-card-subtitle class="pb-0" align="center"> </v-card-subtitle>
           <v-card-text class="text--primary">
-            <div class="green--text font-weight-black">5건</div>
+            <div class="green--text font-weight-black">9건</div>
           </v-card-text>
           <v-card-actions>
             <v-btn @click="navigateTo()" color="green" text>진행하기</v-btn>
@@ -40,7 +40,7 @@
               </v-img>
               <v-card-subtitle class="pb-0" align="center"> </v-card-subtitle>
               <v-card-text class="text--primary">
-                <div class="amber--text font-weight-black">4건</div>
+                <div class="amber--text font-weight-black">8건</div>
               </v-card-text>
               <v-card-actions>
                 <v-btn @click="navigateTo2()" color="amber" text
@@ -60,7 +60,7 @@
               </v-img>
               <v-card-subtitle class="pb-0" align="center"> </v-card-subtitle>
               <v-card-text class="text--primary">
-                <div class="blue--text font-weight-black">4건</div>
+                <div class="blue--text font-weight-black">7건</div>
               </v-card-text>
               <v-card-actions>
                 <v-btn @click="navigateTo3()" color="blue" text>진행하기</v-btn>

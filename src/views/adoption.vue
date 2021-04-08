@@ -8,7 +8,8 @@
         <v-col cols="12" md="9">
           <v-card class="mx-auto" color="lime lighten-5" max-width="1000">
             <div>
-              <img src="list.animalImg" width="500px" height="500px" />
+              <v-img :src="list.animalImg" width="500px" height="500px">
+              </v-img>
 
               <v-form ref="form">
                 id: {{ list.id }}
@@ -116,31 +117,35 @@ export default {
   methods: {
     async patchAdoptions(status) {
       console.log(status);
-      if (status == "완료" && this.list.status == "입양신청") {
-        this.list.status = "입양완료";
-        this.snackbar = true;
-      } else if (status == "완료" && this.list.status == "취소신청") {
-        this.list.status = "취소완료";
-        this.snackbar = true;
-      } else if (status != "완료" && this.list.status == "입양신청") {
-        this.list.status = "거절";
-        this.snackbar = true;
-      } else if (status == "완료" && this.list.status == "입양완료") {
-        this.list.status = "입양완료";
-        this.snackbar = true;
-      } else if (status == "완료" && this.list.status == "취소완료") {
-        this.list.status = "취소완료";
-        this.snackbar = true;
-      } else if (status != "완료" && this.list.status == "거절") {
-        this.list.status = "거절";
-        this.snackbar = true;
-      }
-      const result = await api.patch(this.list.id, this.list);
-      console.log("patch");
-      console.log(result);
+      if (this.list.status == "입양신청" || this.list.status == "취소신청") {
+        if (status == "완료" && this.list.status == "입양신청") {
+          this.list.status = "입양완료";
+          this.snackbar = true;
+        } else if (status == "완료" && this.list.status == "취소신청") {
+          this.list.status = "취소완료";
+          this.snackbar = true;
+        } else if (status != "완료" && this.list.status == "입양신청") {
+          this.list.status = "거절";
+          this.snackbar = true;
+        } else if (status == "완료" && this.list.status == "입양완료") {
+          this.list.status = "입양완료";
+          this.snackbar = true;
+        } else if (status == "완료" && this.list.status == "취소완료") {
+          this.list.status = "취소완료";
+          this.snackbar = true;
+        } else if (status != "완료" && this.list.status == "거절") {
+          this.list.status = "거절";
+          this.snackbar = true;
+        }
+        const result = await api.patch(this.list.id, this.list);
+        console.log("patch");
+        console.log(result);
 
-      if (result.status == 200) {
-        this.patch = result.data;
+        if (result.status == 200) {
+          this.patch = result.data;
+        }
+      } else {
+        alert("이미 처리되었습니다.");
       }
     },
 
