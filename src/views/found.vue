@@ -8,7 +8,7 @@
         <v-col cols="12" md="9">
           <v-card class="mx-auto" color="lime lighten-5" max-width="1000">
             <div>
-              <v-img :src="list.animalFile" width="500px" height="500px">
+              <v-img :src="list.animalFiles" width="500px" height="500px">
               </v-img>
 
               <v-form ref="form">
@@ -78,12 +78,10 @@
 <script>
 import side from "../components/side.vue";
 import api from "@/api/found";
-
 export default {
   components: {
     side,
   },
-
   data() {
     return {
       page: 1,
@@ -95,16 +93,13 @@ export default {
       timeout: 1000,
     };
   },
-
   mounted() {
     // 목록 조회 함수
     this.getList();
   },
-
   methods: {
     async patchFounds(status) {
       console.log(status);
-
       if (status == "승인") {
         this.list.status = "승인";
         this.snackbar = true;
@@ -112,38 +107,30 @@ export default {
         this.list.status = "거절";
         this.snackbar = true;
       }
-
       const result = await api.patch(this.list.id, this.list);
-
       console.log("patch" + result);
-
       if (result.status == 200) {
         this.patch = result.data;
       }
     },
-
     async getList() {
       let page = 0;
       const result = await api.found(page);
       console.log(result);
-
       if (result.status == 200) {
         this.list = result.data.content[0];
         this.totalPages = result.data.totalPages;
       }
       // this.get();
     },
-
     async get() {
       const result = await api.get(this.id);
       console.log(this.id);
-
       if (result.status == 200) {
         // this.list = result.data.content;
         this.list = result.data;
       }
     },
-
     async handlePageChange(value) {
       const result = await api.found(value - 1);
       if (result.status == 200) {

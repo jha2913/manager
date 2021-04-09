@@ -124,8 +124,8 @@ export default {
       let page = 0;
 
       const result = await api.lost(page);
-
       const result2 = await api.picture(page);
+
       console.log("000");
       console.log(result2.data.content[0].dataUrl);
 
