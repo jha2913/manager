@@ -8,7 +8,7 @@
         <v-col cols="12" md="9">
           <v-card class="mx-auto" color="lime lighten-5" max-width="1000">
             <div>
-              <v-img :src="picture.animalFiles" width="500px" height="500px">
+              <v-img :src="picture.dataUrl" width="500px" height="500px">
               </v-img>
 
               <v-form ref="form">
@@ -114,6 +114,7 @@ export default {
 
       const result = await api.patch(this.list.id, this.list);
       console.log("patch" + result);
+      console.log(result);
 
       if (result.status == 200) {
         this.patch = result.data;
