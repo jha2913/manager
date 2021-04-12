@@ -8,8 +8,7 @@
         <v-col cols="12" md="9">
           <v-card class="mx-auto" color="lime lighten-5" max-width="1000">
             <div>
-              <v-img :src="picture.dataUrl" width="500px" height="500px">
-              </v-img>
+              <v-img :src="list.file" width="500px" height="500px"> </v-img>
 
               <v-form ref="form">
                 id: {{ list.id }}
@@ -77,30 +76,27 @@
 <script>
 import side from "../components/side.vue";
 import api from "@/api/lost";
-
 export default {
   components: {
     side,
   },
-
   data() {
     return {
       page: 1,
       totalPages: 5,
       lost: "",
       list: [],
-      picture: [],
+      picture: "",
+      files: [],
       id: 1,
       snackbar: false,
       timeout: 1000,
     };
   },
-
   mounted() {
     // 목록 조회 함수
     this.getList();
   },
-
   methods: {
     async patchLosts(status) {
       console.log("status----" + status);
@@ -111,25 +107,19 @@ export default {
         this.list.status = "거절";
         this.snackbar = true;
       }
-
       const result = await api.patch(this.list.id, this.list);
       console.log("patch" + result);
       console.log(result);
-
       if (result.status == 200) {
         this.patch = result.data;
       }
     },
-
     async getList() {
       let page = 0;
-
       const result = await api.lost(page);
       const result2 = await api.picture(page);
-
       console.log("000");
-      console.log(result2.data.content[0].dataUrl);
-
+      console.log(result2.data);
       if (result.status == 200) {
         // this.list = result.data.content;
         this.picture = result2.data.content[0];
@@ -137,18 +127,18 @@ export default {
       }
       this.get();
     },
-
     async get() {
       const result = await api.get(this.id);
-
       if (result.status == 200) {
         // this.list = result.data.content;
         this.list = result.data;
         console.log("-----");
         console.log(this.list);
+        this.files = result.data.files[0].dataUrl;
+        console.log("사진");
+        console.log(this.files);
       }
     },
-
     async handlePageChange(value) {
       const result = await api.lost(value - 1);
       if (result.status == 200) {

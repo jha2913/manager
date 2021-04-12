@@ -8,7 +8,11 @@
         <v-col cols="12" md="9">
           <v-card class="mx-auto" color="lime lighten-5" max-width="1000">
             <div>
-              <v-img :src="list.animalFiles" width="500px" height="500px">
+              <v-img
+                src="http://image.dongascience.com/Photo/2020/03/5bddba7b6574b95d37b6079c199d7101.jpg"
+                width="500px"
+                height="500px"
+              >
               </v-img>
 
               <v-form ref="form">
