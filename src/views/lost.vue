@@ -8,7 +8,12 @@
         <v-col cols="12" md="9">
           <v-card class="mx-auto" color="lime lighten-5" max-width="1000">
             <div>
-              <v-img :src="list.file" width="500px" height="500px"> </v-img>
+              <v-img
+                src="http://image.dongascience.com/Photo/2019/09/d2468576cecf1313437de5a883bfa2ed.jpg"
+                width="500px"
+                height="500px"
+              >
+              </v-img>
 
               <v-form ref="form">
                 id: {{ list.id }}
@@ -134,7 +139,7 @@ export default {
         this.list = result.data;
         console.log("-----");
         console.log(this.list);
-        this.files = result.data.files[0].dataUrl;
+        this.files = result.data.files[0];
         console.log("사진");
         console.log(this.files);
       }
@@ -143,6 +148,7 @@ export default {
       const result = await api.lost(value - 1);
       if (result.status == 200) {
         this.list = result.data.content[0];
+        console.log(result.data.content[0].files[0].dataUrl);
       }
     },
   },
